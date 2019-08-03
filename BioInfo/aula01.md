@@ -15,7 +15,6 @@ mkdir dados/freebayes
 mkdir dados/gatk
 ```
 
-
 ## Listar o diretório atual;
 ```
 pwd
@@ -23,7 +22,7 @@ pwd
 
 ## Copiar os FASTQ para sua pasta de análise;
 ```
-cp /bioinfo/dados/NextSeq_RUN01/Files/Data/Intensities/BaseCalls/AMOSTRA01_S1*.fastq.gz dados/fastq/
+time cp /bioinfo/data/fastq/003.fastq.gz dados/fastq/
 ```
 
 ## Listar os arquivos copiados;
@@ -33,11 +32,11 @@ ls -lh dados/fastq/*
 
 ## Executar o FASTQC para avaliar a qualidade das sequencias produzidas;
 ```
-time fastqc -o dados/fastqc dados/fastq/AMOSTRA01_S1_R1_001.fastq.gz dados/fastq/AMOSTRA01_S1_R2_001.fastq.gz
+time fastqc -o dados/fastqc dados/fastq/003.fastq.gz
 ```
 
 
-## Mapear os FASTQ limpos contra o hg19;
+## Mapear os FASTQ contra o hg19;
 ```
 # Voltar para o HOME
 cd ~/
@@ -47,8 +46,7 @@ Plataforma=Plataforma;
 
 time bwa mem -M -R "@RG\tID:CAP\tSM:$NOME\tLB:$Biblioteca\tPL:$Plataforma" \
 /bioinfo/referencia/hg19/chr1_13_17.fa \
-dados/fastq/AMOSTRA01_S1_R1_001_cutadapt.fastq \
-dados/fastq/AMOSTRA01_S1_R2_001_cutadapt.fastq >dados/bwa/AMOSTRA01_S1.sam
+dados/fastq/003.fastq.gz >dados/bwa/AMOSTRA01_S1.sam
 ```
 
 ## Utilizar o samtools: fixmate, sort e index
